@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="hbmqtt-auth-home-assistant",
-    version="1.0.1",
+    version="1.0.2",
     description="HBMQTT Authentication plugin for Home Assistant",
     author="Paulus Schoutsen",
     author_email='paulus@home-assistant.io',
