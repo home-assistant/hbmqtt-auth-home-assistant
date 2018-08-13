@@ -1,6 +1,6 @@
 # HBMQTT auth plugin for Home Assistant
 
-This is a plugin for the HBMQTT MQTT broker to allow authentication against the Home Assistant auth system.
+This is a plugin for the [HBMQTT MQTT broker](https://github.com/beerfactory/hbmqtt) to allow authentication against the Home Assistant auth system.
 
 ```python
 # Example broker configuration
