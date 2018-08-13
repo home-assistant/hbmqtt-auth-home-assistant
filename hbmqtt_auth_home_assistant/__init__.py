@@ -26,20 +26,19 @@ class HassAuthPlugin(BaseAuthPlugin):
         if session.username == 'homeassistant':
             legacy_prov = _find_provider(self.hass, 'legacy_api_password')
 
-            try:
-                legacy_prov.async_validate_login(session.password)
-                return True
-            except Exception:
-                pass
+            if legacy_prov is not None:
+                try:
+                    legacy_prov.async_validate_login(session.password)
+                    return True
+                except Exception:
+                    pass
 
         hass_prov = _find_provider(self.hass, 'homeassistant')
-
         await hass_prov.async_initialize()
 
         try:
             await hass_prov.async_validate_login(
                 session.username, session.password)
-            print("AUTHENTICATED", session.username)
             return True
         except Exception:
             return False
