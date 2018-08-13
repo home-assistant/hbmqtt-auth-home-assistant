@@ -7,7 +7,13 @@ class HassAuthPlugin(BaseAuthPlugin):
         try:
             self.hass = self.auth_config['home-assistant']
         except KeyError:
-            self.context.logger.warning("'home-assistant' key not found in auth configuration")
+            self.context.logger.warning(
+                "'home-assistant' key not found in auth configuration")
+
+        if _find_provider(self.hass, 'homeassistant') is None:
+            self.context.logger.warning(
+                "'homeassistant' auth provider needs to be loaded in Home "
+                "Assistant")
 
     async def authenticate(self, *args, **kwargs):
         authenticated = super().authenticate(*args, **kwargs)
@@ -34,6 +40,10 @@ class HassAuthPlugin(BaseAuthPlugin):
                     pass
 
         hass_prov = _find_provider(self.hass, 'homeassistant')
+
+        if hass_prov is None:
+            return False
+
         await hass_prov.async_initialize()
 
         try:
